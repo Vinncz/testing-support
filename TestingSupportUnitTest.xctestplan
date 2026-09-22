@@ -14,13 +14,6 @@
   },
   "testTargets" : [
     {
-      "skippedTests" : {
-        "suites" : [
-          {
-            "name" : "GherkinTests"
-          }
-        ]
-      },
       "target" : {
         "containerPath" : "container:",
         "identifier" : "TestingSupportTests",
