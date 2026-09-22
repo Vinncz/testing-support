@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "85EDD534-3A57-4EFF-9F56-56244CAA99AC",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testInteropMode" : "complete",
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : {
+        "suites" : [
+          {
+            "name" : "GherkinTests"
+          }
+        ]
+      },
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "TestingSupportTests",
+        "name" : "TestingSupportTests"
+      }
+    }
+  ],
+  "version" : 2
+}
