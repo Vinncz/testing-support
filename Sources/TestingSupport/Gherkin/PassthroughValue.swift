@@ -5,7 +5,6 @@ import Foundation
 /// Use `>>>` before an expression to pass its result to the next step in the chain.
 ///   Expressions without this operator are executed as side effects,
 ///   but are ignored by the ``PassthroughBuilder``.
-/// ```
 prefix operator >>>
 
 /// Wraps a value to be captured by the ``PassthroughBuilder``.

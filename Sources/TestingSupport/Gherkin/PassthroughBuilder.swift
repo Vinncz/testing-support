@@ -3,7 +3,6 @@ import Foundation
 /// A result builder that constructs tuples from values marked with `>>>`.
 ///
 /// Any expression not marked with `>>>` is executed but ignored in the return value.
-/// See <doc:StateManagement> for details on tuple flattening.
 @resultBuilder
 public struct PassthroughBuilder {}
 
@@ -81,6 +80,12 @@ extension PassthroughBuilder {
 /// Flattening extension.
 extension PassthroughBuilder {
 
+    /// Combines an accumulated 2-tuple with the next captured value into a 3-tuple.
+    ///
+    /// - Parameters:
+    ///   - accumulated: The previously accumulated 2-tuple of values.
+    ///   - next: The next captured `PassthroughValue`.
+    /// - Returns: A 3-tuple containing all accumulated values and the next value.
     public static func buildPartialBlock<T1, T2, T3>(
         accumulated: (T1, T2),
         next: PassthroughValue<T3>
@@ -88,6 +93,12 @@ extension PassthroughBuilder {
         (accumulated.0, accumulated.1, next.value)
     }
 
+    /// Combines an accumulated 3-tuple with the next captured value into a 4-tuple.
+    ///
+    /// - Parameters:
+    ///   - accumulated: The previously accumulated 3-tuple of values.
+    ///   - next: The next captured `PassthroughValue`.
+    /// - Returns: A 4-tuple containing all accumulated values and the next value.
     public static func buildPartialBlock<T1, T2, T3, T4>(
         accumulated: (T1, T2, T3),
         next: PassthroughValue<T4>
@@ -95,6 +106,12 @@ extension PassthroughBuilder {
         (accumulated.0, accumulated.1, accumulated.2, next.value)
     }
 
+    /// Combines an accumulated 4-tuple with the next captured value into a 5-tuple.
+    ///
+    /// - Parameters:
+    ///   - accumulated: The previously accumulated 4-tuple of values.
+    ///   - next: The next captured `PassthroughValue`.
+    /// - Returns: A 5-tuple containing all accumulated values and the next value.
     public static func buildPartialBlock<T1, T2, T3, T4, T5>(
         accumulated: (T1, T2, T3, T4),
         next: PassthroughValue<T5>
@@ -102,10 +119,61 @@ extension PassthroughBuilder {
         (accumulated.0, accumulated.1, accumulated.2, accumulated.3, next.value)
     }
 
+    /// Combines an accumulated 5-tuple with the next captured value into a 6-tuple.
+    ///
+    /// - Parameters:
+    ///   - accumulated: The previously accumulated 5-tuple of values.
+    ///   - next: The next captured `PassthroughValue`.
+    /// - Returns: A 6-tuple containing all accumulated values and the next value.
     public static func buildPartialBlock<T1, T2, T3, T4, T5, T6>(
         accumulated: (T1, T2, T3, T4, T5),
         next: PassthroughValue<T6>
     ) -> (T1, T2, T3, T4, T5, T6) {
         (accumulated.0, accumulated.1, accumulated.2, accumulated.3, accumulated.4, next.value)
+    }
+
+    /// Combines an accumulated 6-tuple with the next captured value into a 7-tuple.
+    ///
+    /// - Parameters:
+    ///   - accumulated: The previously accumulated 6-tuple of values.
+    ///   - next: The next captured `PassthroughValue`.
+    /// - Returns: A 7-tuple containing all accumulated values and the next value.
+    public static func buildPartialBlock<T1, T2, T3, T4, T5, T6, T7>(
+        accumulated: (T1, T2, T3, T4, T5, T6),
+        next: PassthroughValue<T7>
+    ) -> (T1, T2, T3, T4, T5, T6, T7) {
+        (accumulated.0, accumulated.1, accumulated.2, accumulated.3, accumulated.4, accumulated.5, next.value)
+    }
+
+    /// Combines an accumulated 7-tuple with the next captured value into an 8-tuple.
+    ///
+    /// - Parameters:
+    ///   - accumulated: The previously accumulated 7-tuple of values.
+    ///   - next: The next captured `PassthroughValue`.
+    /// - Returns: An 8-tuple containing all accumulated values and the next value.
+    public static func buildPartialBlock<T1, T2, T3, T4, T5, T6, T7, T8>(
+        accumulated: (T1, T2, T3, T4, T5, T6, T7),
+        next: PassthroughValue<T8>
+    ) -> (T1, T2, T3, T4, T5, T6, T7, T8) {
+        (
+            accumulated.0, accumulated.1, accumulated.2, accumulated.3, accumulated.4, accumulated.5, accumulated.6,
+            next.value
+        )
+    }
+
+    /// Combines an accumulated 8-tuple with the next captured value into a 9-tuple.
+    ///
+    /// - Parameters:
+    ///   - accumulated: The previously accumulated 8-tuple of values.
+    ///   - next: The next captured `PassthroughValue`.
+    /// - Returns: A 9-tuple containing all accumulated values and the next value.
+    public static func buildPartialBlock<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+        accumulated: (T1, T2, T3, T4, T5, T6, T7, T8),
+        next: PassthroughValue<T9>
+    ) -> (T1, T2, T3, T4, T5, T6, T7, T8, T9) {
+        (
+            accumulated.0, accumulated.1, accumulated.2, accumulated.3, accumulated.4, accumulated.5, accumulated.6,
+            accumulated.7, next.value
+        )
     }
 }
