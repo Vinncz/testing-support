@@ -13,13 +13,10 @@ struct ErrorHandlingTests {
             try given("making a network call") {
                 >>>"payload"
             }
-            .after("the response is received") { (_: String) throws -> String in
+            .after("the response is received") { (_: String) in
                 throw ScenarioError.deserializeFailure
-                return "response"
             }
-            .should("contain valid data") { (response: String) in
-                #expect(response.isEmpty == false)
-            }
+            .should("contain valid data") { () in }
             .then("proceed normally") {}
             .finally("perform mandatory cleanup") {
                 finallyExecuted = true
@@ -47,11 +44,10 @@ struct ErrorHandlingTests {
             try given("an initial successful setup") {
                 >>>100
             }
-            .when("a failure occurs") { (_: Int) throws -> Int in
+            .when("a failure occurs") { (_: Int) in
                 throw expectedError
-                return 0
             }
-            .then("this downstream step must be skipped") { (_: Int) in
+            .then("this downstream step must be skipped") { () in
                 downstreamStepRan = true
             }
             .finally("cleanup runs unconditionally") {

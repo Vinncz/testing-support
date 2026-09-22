@@ -112,17 +112,20 @@ struct ConcurrencyTests {
         var downstreamRan = false
         var finallyRan = false
 
+        func simulateAsyncFailure() async throws {
+            try await Task.sleep(nanoseconds: 1_000)
+            throw expectedError
+        }
+
         do {
             try await given("an async scenario") {
                 try await Task.sleep(nanoseconds: 1_000)
                 >>>"start"
             }
-            .when("an asynchronous error is thrown") { (_: String) async throws -> String in
-                try await Task.sleep(nanoseconds: 1_000)
-                throw expectedError
-                return "fallback"
+            .when("an asynchronous error is thrown") { (_: String) in
+                try await simulateAsyncFailure()
             }
-            .then("downstream async step must be skipped") { (_: String) in
+            .then("downstream async step must be skipped") { () in
                 downstreamRan = true
             }
             .finally("teardown completes unconditionally") {
