@@ -16,8 +16,10 @@ extension PassthroughBuilder {
     public static func buildExpression<T>(_ expression: PassthroughValue<T>) -> PassthroughValue<T> { expression }
 
     /// Ignores an unmarked value within the builder block.
+    ///   This overload is disfavored so expressions producing `PassthroughValue` are prioritized.
     ///
     /// - Parameter expression: A value that should be discarded.
+    @_disfavoredOverload
     public static func buildExpression<T>(_ expression: T) {}
 
     /// Ignores a void expression within the builder block.
@@ -41,14 +43,19 @@ extension PassthroughBuilder {
     /// Handles a block that starts with a void or ignored expression.
     ///
     /// - Parameter first: A void input.
+    @_disfavoredOverload
     public static func buildPartialBlock(first: Void) {}
 
     /// Accumulates a new marked value into an existing result.
+    ///
+    /// Marked as a disfavored overload so tuple-flattening overloads (e.g. `(T1, T2) + T3 -> (T1, T2, T3)`)
+    ///   and void-accumulation overloads (`Void + U -> U`) are strictly prioritized by the type solver.
     ///
     /// - Parameters:
     ///   - accumulated: The previously captured value(s).
     ///   - next: The next `PassthroughValue` to capture.
     /// - Returns: A tuple containing the accumulated value(s) and the new value.
+    @_disfavoredOverload
     public static func buildPartialBlock<T, U>(accumulated: T, next: PassthroughValue<U>) -> (T, U) {
         (accumulated, next.value)
     }
@@ -59,6 +66,7 @@ extension PassthroughBuilder {
     ///   - accumulated: The already captured value(s).
     ///   - next: An ignored void expression.
     /// - Returns: The original accumulated value(s).
+    @_disfavoredOverload
     public static func buildPartialBlock<T>(accumulated: T, next: Void) -> T { accumulated }
 
     /// Discards accumulated voids and captures the first valid value encountered later in the block.
@@ -74,6 +82,7 @@ extension PassthroughBuilder {
     /// - Parameters:
     ///   - accumulated: Previous void expressions.
     ///   - next: A new void expression.
+    @_disfavoredOverload
     public static func buildPartialBlock(accumulated: Void, next: Void) {}
 }
 
