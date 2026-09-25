@@ -12,7 +12,7 @@ import Foundation
 /// If any step closure throws an error, execution immediately short-circuits. All subsequent steps in the chain
 ///   are bypassed without executing their closures, preserving the original error inside the `GherkinStep`.
 ///
-/// The ``finally(_:work:)`` block is guaranteed to execute regardless of whether earlier steps succeeded or failed.
+/// The `finally` block is guaranteed to execute regardless of whether earlier steps succeeded or failed.
 ///   Once its cleanup work finishes, `finally` rethrows the upstream error to fail the enclosing test case, or returns
 ///   the final accumulated value if all steps succeeded.
 public struct GherkinStep<T> {
